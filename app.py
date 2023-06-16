@@ -66,24 +66,23 @@ def filter_main(df):
                    'New Deaths', 'New Recovered']
 
     # data filter
-    df_filter = df[['Date', 'New Cases',
+    df_filter = df[['New Cases',
                     'New Deaths', 'New Recovered', 'Location']]
     data_filter = st.selectbox('Pilih data', cols_filter)
     title = f"Akumulasi {data_filter} Tiap Kota"
     show_filter = st.checkbox('Tampilkan filter lain')
 
-    df_filter['Date'] = pd.to_datetime(df_filter['Date'])
-
     if show_filter:
+        df['Date'] = pd.to_datetime(df['Date'])
         # unique years and months from the DataFrame
-        years = df_filter['Date'].dt.year.unique()
-        months = df_filter['Date'].dt.month.unique()
+        years = df['Date'].dt.year.unique()
+        months = df['Date'].dt.month.unique()
 
         selected_year = st.selectbox('Select Year', years)
 
         # filter the DataFrame based on the selected year
-        filtered_df_year = df_filter[df_filter['Date'].dt.year ==
-                                     selected_year]
+        filtered_df_year = df[df['Date'].dt.year ==
+                              selected_year]
 
         selected_month = st.selectbox(
             'Select Month', months, format_func=lambda m: calendar.month_name[m])
