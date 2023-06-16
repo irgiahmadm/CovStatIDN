@@ -69,7 +69,7 @@ def filter_main(df):
     df_filter = df[['New Cases',
                     'New Deaths', 'New Recovered', 'Location']]
     data_filter = st.selectbox('Pilih data', cols_filter)
-    title = f"Akumulasi {data_filter} Tiap Kota"
+    title = f"Akumulasi {data_filter} Tiap Provinsi"
     show_filter = st.checkbox('Tampilkan filter lain')
 
     if show_filter:
@@ -103,13 +103,13 @@ def filter_main(df):
         filtered_df_cumulative = filtered_df_cumulative[[
             'New Cases', 'New Deaths', 'New Recovered', 'Location'
         ]]
-        st.dataframe(filtered_df_cumulative)
+
         filtered_df_cumulative = filtered_df_cumulative.groupby(
             'Location').sum().reset_index()
     else:
         filtered_df_cumulative = df_filter[df_filter['Location']
                                            != 'Indonesia']
-        st.dataframe(filtered_df_cumulative)
+
         filtered_df_cumulative = filtered_df_cumulative.groupby(
             'Location').sum().reset_index()
 
@@ -133,7 +133,7 @@ def chart_main(df, data_filter, title):
 
 def main_menu(df):
 
-    st.header(f'Akumulasi Data Tiap Kota')
+    st.header(f'Akumulasi Data Tiap Provinsi')
 
     col1, col2 = st.columns(2)
     with col1:
