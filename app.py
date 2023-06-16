@@ -100,11 +100,16 @@ def filter_main(df):
         # filter the DataFrame based on the selected date
         filtered_df_date = filtered_df_month[filtered_df_month['Date'].dt.date == selected_date]
         filtered_df_cumulative = filtered_df_date[filtered_df_date['Location'] != 'Indonesia']
+        filtered_df_cumulative = filtered_df_cumulative[[
+            'New Cases', 'New Deaths', 'New Recovered', 'Location'
+        ]]
+        st.dataframe(filtered_df_cumulative)
         filtered_df_cumulative = filtered_df_cumulative.groupby(
             'Location').sum().reset_index()
     else:
         filtered_df_cumulative = df_filter[df_filter['Location']
                                            != 'Indonesia']
+        st.dataframe(filtered_df_cumulative)
         filtered_df_cumulative = filtered_df_cumulative.groupby(
             'Location').sum().reset_index()
 
